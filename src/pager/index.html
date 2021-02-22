@@ -1,51 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-
-p { 
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; 
-	font-size: 24px; 
-	font-style: normal; 
-	font-variant: 
-	normal; 
-	font-weight: 700; 
-	line-height: 26.4px; 
-	display: none;
-	}
-.center {
-  margin: auto;
-  width: 50%;
-  padding: 10px;
-}
-.container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-.footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: red;
-  color: white;
-  text-align: center;
-}
-
-.button-left {
-	display: inline-block;
-}
-
-.button-right {
-	display: inline-block;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="main.css">
 </head>
 <body>
-<div class="container">
-<div class="center" id="content">
+<div>
+<div class="header">
+	<button onclick="pager.gohome()">Home</button>
+</div>
+<div class="content" id="content">
 <p>A prince am I of ancestry renowned,</p>
 <p>Illustrious name my royal sire hath found.</p>
 <p>When Sirius did in spring its light display,</p>
@@ -74,7 +37,7 @@ p {
 <p>&nbsp;</p>
 <p>Three ancient kings there were so pure and true</p>
 <p>That round them every fragrant flower grew;</p>
-<p>Cassia and pepper of the mountain-side </p>
+<p>Cassia and pepper of the mountain-side</p>
 <p>With melilotus white in clusters vied.</p>
 <p>Two monarchs then, who high renown received,</p>
 <p>Followed the kingly way, their goal achieved.</p>
@@ -343,7 +306,7 @@ p {
 <p>Rich ornaments how could they fitly wear?</p>
 <p>With mud and filth they fill their pendent bag;</p>
 <p>Cursing the pepper sweet, they brawl and brag.</p>
-<p>" Although the witches counsel I held good,</p>
+<p>"Although the witches counsel I held good,</p>
 <p>In foxlike indecision still I stood.</p>
 <p>At night the wizard great made his descent,</p>
 <p>And meeting him spiced rice I did present.</p>
@@ -452,97 +415,19 @@ p {
 </body>
 </div>
 <div class="footer">
-<div class="button-left">
-<button onclick="pager.back()"  >Page Back	
+<button onclick="pager.back()" >Page Back	
 </button>
-</div>
-<div onclick="pager.forward()" class="button-right">
-<button>Page Forward
+<span id="page-counter" class="pages"></span>
+<button onclick="pager.forward()">Page Forward
 </button>
-</div>
 </div>
 </div>
 
-
+<script src="main.js"></script>
 <script>
-
-function Pager() {
-	const self = this;
-	
-	self.lines = null;
-	self.breaks = null;
-	self.breakIndex = 0;
-	self.breakEnd = 0;
-	
-	self.getBreaks = function(array) {
-		var breaks = [];
-		
-		breaks.push(-1);
-		
-		for (i = 0; i < array.length; i++)
-		{
-			if(array[i].innerHTML == "&nbsp;")
-				breaks.push(i);
-		}
-		
-		return breaks;
-	}
-
-	self.hideRange = function (start, end) {
-		for(i = start+1; i < end; i++)
-		{
-			self.lines[i].style.display = 'none';
-		}
-	}
-
-	self.showRange = function (start, end) {
-		for(i = start+1; i < end; i++)
-		{
-			self.lines[i].style.display = 'block';
-		}
-	}
-
-	self.init = function () {
-		self.lines = Array.from(document.getElementById("content").childNodes).filter(x => x.nodeName == "P");
-		
-		self.breaks = self.getBreaks(self.lines);
-			
-		self.showRange(self.breaks[0], self.breaks[1]);
-		
-		self.breakEnd = self.breaks.length - 2
-		
-		console.log("initalized");
-	}
-
-	self.back = function () {
-		if(self.breakIndex === 0)
-			return;
-			
-		var currentStart = 
-		var currentEnd =
-		
-		self.hideRange(self.breaks[self.breakIndex], self.breaks[self.breakIndex + 1]);
-		self.showRange(self.breaks[self.breakIndex - 1], self.breaks[self.breakIndex]);
-		
-		self.breakIndex -= 1;
-	}
-
-	self.forward = function () {
-		if(self.breakIndex === self.breakEnd)
-			return;
-
-		self.hideRange(self.breaks[self.breakIndex], self.breaks[self.breakIndex + 1]);
-		self.showRange(self.breaks[self.breakIndex + 1], self.breaks[self.breakIndex + 2]);
-		
-		self.breakIndex += 1;
-	}
-};
-
 var pager = new Pager();
 
 pager.init();
-
-
 </script>
 
 </html>

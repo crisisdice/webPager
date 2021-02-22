@@ -1,0 +1,70 @@
+p { 
+  font-family: "Computer Modern";
+  font-size: 24px; 
+  line-height: 26px; 
+  display: none;
+  src: url('http://mirrors.ctan.org/fonts/cm-unicode/fonts/otf/cmunss.otf');
+}
+
+html {
+  overflow-y: scroll;
+}
+
+body {
+  background-color: rgba(33, 100, 156, 0.25);
+}
+
+button {
+  transition-duration: 0.2s;
+  border-radius: 8px;
+  background-color: #20639B;	/* 555555 */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #3CAEA3; /* Green */
+  color: white;
+}
+	
+.content {
+  width: 50%;
+  margin: 0 auto;
+  padding: 5%;
+}
+
+.footer {
+  font-family: "Helvetica";
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  height: 6%;
+  width: 100%;
+  padding: 1%;
+  background-color: #173F5F;
+  color: white;
+  text-align: center;
+}
+
+.header {
+  font-family: "Helvetica";
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 6%;
+  width: 100%;
+  padding: 1%;
+  background-color: #173F5F;
+  color: white;
+  text-align: center;
+}
+
+.pages {
+	width: 200px;
+	display: inline-block;
+}
