@@ -1,6 +1,33 @@
+function HttpClient() {
+	const self = this;
+	self.makeRequest = function(method, url) {
+		return new Promise(function (resolve, reject) {
+			let xhr = new XMLHttpRequest();
+			xhr.open(method, url);
+			xhr.onload = function () {
+				if (this.status >= 200 && this.status < 300) {
+					resolve(xhr.response);
+				} else {
+					reject({
+						status: this.status,
+						statusText: xhr.statusText
+					});
+				}
+			};
+			xhr.onerror = function () {
+				reject({
+					status: this.status,
+					statusText: xhr.statusText
+					});
+				};
+			xhr.send();
+		});
+	}
+}
+
 function Pager() {
 	const self = this;
-	
+
 	//rw
 	self.lines = null;
 	self.pageCounter = null;
@@ -11,20 +38,6 @@ function Pager() {
 	self.breakEnd = 0;
 	self.totalPages = 0;
 	
-	self.getBreaks = function(array) {
-		var breaks = [];
-		
-		breaks.push(-1);
-		
-		for (i = 0; i < array.length; i++)
-		{
-			if(array[i].innerHTML == "&nbsp;")
-				breaks.push(i);
-		}
-		
-		return breaks;
-	}
-
 	self.hideRange = function (start, end) {
 		for(i = start+1; i < end; i++)
 		{
@@ -91,21 +104,27 @@ function Pager() {
 		self.updatePageCounter();
 	}
 	
-	self.init = function () {
-		//html elements
-		var content = document.getElementById("content").childNodes;
+	self.init = async function (contentObject) {
+		console.log("initalizing");
+
+		//dom mapping
+		var content = document.getElementById("content");
 		var pageCounter = document.getElementById("page-counter");
 
-		self.lines = Array.from(content).filter(x => x.nodeName == "P");
+		self.lines = content.childNodes;
 		self.pageCounter = pageCounter;
-		
-		//properties
-		self.breaks = self.getBreaks(self.lines);
+
+		//document properties
+		self.breaks = contentObject.breaks;
 		self.totalPages = self.breaks.length - 1;
 		self.breakEnd = self.totalPages - 1;
-		
+
+		//initial display logic
+		content.innerHTML = contentObject.text;
+
 		self.showRange(self.breaks[0], self.breaks[1]);
 		self.updatePageCounter();
+
 		console.log("initalized");
 	}
 };
